@@ -1,26 +1,54 @@
+// Creating The Scene
 const scene = new THREE.Scene();
 
-const axesHelper = new THREE.AxesHelper();
-scene.add( axesHelper );
+// const axesHelper = new THREE.AxesHelper( 2 );
+// scene.add( axesHelper );
 
+// Creating The Camera
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight );
 scene.add( camera );
 camera.position.z = 7;
 
-const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-const material = new THREE.MeshBasicMaterial({color: 0xff0000});
-const mesh = new THREE.Mesh( geometry, material );
-scene.add( mesh );
-console.log();
+// Creating The Group To Add All Cubes To It
+const cubesGroup = new THREE.Group();
+
+const cubesArr = [];
+for (let i = 0; i < 20; i++)
+{
+	let randomColor1 = Math.floor(Math.random() * 256);
+	let randomColor2 = Math.floor(Math.random() * 256);
+	let randomColor3 = Math.floor(Math.random() * 256);
+
+	// Generting Ramdon Colors
+	const randomColor = new THREE.Color(`rgb(${randomColor1}, ${randomColor2}, ${randomColor3})`);
+	cubesArr[i] = new THREE.Mesh(
+		new THREE.BoxGeometry( 1, 1, 1 ),
+		new THREE.MeshBasicMaterial({color: randomColor})
+	);
+	cubesGroup.add( cubesArr[i] );
+	scene.add( cubesArr[i] );
+};
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
-window.addEventListener('mousemove', (e) =>
+const time = new THREE.Clock();
+
+const animate= ()=>
 {
-	mesh.position.x = e.clientX;
-	mesh.position.y = e.clientY;
-	console.log(e.clientX);
-	console.log(e.clientY);
-})
-renderer.render( scene, camera );
+	let elapsedTime = time.getElapsedTime();
+	// This Method Used To Call The Animate Function Every Frame!
+	requestAnimationFrame( animate );
+	for (let i = 0; i < 20; i++)
+	{
+		cubesArr[i].position.x = Math.cos( (elapsedTime - i) / 2 );
+		cubesArr[i].position.y = Math.sin( elapsedTime - i );
+		cubesArr[i].position.z = Math.tan( elapsedTime + i / 3 );
+		cubesArr[i].rotation.x = (elapsedTime - i) / 3;
+		cubesArr[i].rotation.y = (elapsedTime - i) / 3;
+	}
+	renderer.render( scene, camera );
+	camera.lookAt( cubesGroup.position );
+}
+
+animate();
