@@ -29,12 +29,25 @@ for (let i = 0; i < 20; i++)
 	scene.add( cubesArr[i] );
 };
 
+const mouse = {
+	x: 0,
+	y: 0
+};
+
+window.addEventListener( 'mousemove', (e) =>
+{
+	mouse.x = e.clientX / window.innerWidth - .5;
+	mouse.y = -(e.clientY / window.innerHeight - .5);
+	// console.log( mouse.x );
+	// console.log( mouse.y );
+} );
+
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 const time = new THREE.Clock();
 
-const animate= ()=>
+const animate = ()=>
 {
 	let elapsedTime = time.getElapsedTime();
 	// This Method Used To Call The Animate Function Every Frame!
@@ -47,8 +60,9 @@ const animate= ()=>
 		cubesArr[i].rotation.x = (elapsedTime - i) / 3;
 		cubesArr[i].rotation.y = (elapsedTime - i) / 3;
 	}
+	camera.position.x = mouse.x * 3;
+	camera.position.y = mouse.y * 3;
 	renderer.render( scene, camera );
-	camera.lookAt( cubesGroup.position );
 }
 
 animate();
