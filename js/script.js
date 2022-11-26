@@ -19,7 +19,7 @@ for (let i = 0; i < 20; i++)
 	let randomColor2 = Math.floor(Math.random() * 256);
 	let randomColor3 = Math.floor(Math.random() * 256);
 
-	// Generting Ramdon Colors
+	// Generting Random Colors
 	const randomColor = new THREE.Color(`rgb(${randomColor1}, ${randomColor2}, ${randomColor3})`);
 	cubesArr[i] = new THREE.Mesh(
 		new THREE.BoxGeometry( 1, 1, 1 ),
@@ -34,12 +34,11 @@ const mouse = {
 	y: 0
 };
 
+// Get Mouse Coordinates
 window.addEventListener( 'mousemove', (e) =>
 {
 	mouse.x = e.clientX / window.innerWidth - .5;
 	mouse.y = -(e.clientY / window.innerHeight - .5);
-	// console.log( mouse.x );
-	// console.log( mouse.y );
 } );
 
 const renderer = new THREE.WebGLRenderer();
