@@ -1,3 +1,6 @@
+import * as THREE from "https://cdn.skypack.dev/three";
+import OrbitControls from 'https://cdn.skypack.dev/threejs-orbit-controls';
+
 // Creating The Scene
 const scene = new THREE.Scene();
 
@@ -29,21 +32,15 @@ for (let i = 0; i < 20; i++)
 	scene.add( cubesArr[i] );
 };
 
-const mouse = {
-	x: 0,
-	y: 0
-};
-
-// Get Mouse Coordinates
-window.addEventListener( 'mousemove', (e) =>
-{
-	mouse.x = e.clientX / window.innerWidth - .5;
-	mouse.y = -(e.clientY / window.innerHeight - .5);
-} );
-
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
+
+//Add Controls
+const orbitControls = new OrbitControls( camera, renderer.domElement );
+orbitControls.enableDamping = true;
+orbitControls.dampingFactor = 0.25;
+
 const time = new THREE.Clock();
 
 const animate = ()=>
@@ -59,8 +56,7 @@ const animate = ()=>
 		cubesArr[i].rotation.x = (elapsedTime - i) / 3;
 		cubesArr[i].rotation.y = (elapsedTime - i) / 3;
 	}
-	camera.position.x = mouse.x * 3;
-	camera.position.y = mouse.y * 3;
+	orbitControls.update();
 	renderer.render( scene, camera );
 }
 
