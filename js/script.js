@@ -14,7 +14,7 @@ for (let i = 0; i < 20; i++)
 {
 	let randomRedDegree = Math.floor(Math.random() * 256);
 
-	// Generting Random Colors
+	// Generting Random Red Degree Color
 	const randomColor = new THREE.Color(`rgb(${randomRedDegree}, 0, 0)`);
 	cubesArr[i] = new THREE.Mesh(
 		new THREE.BoxGeometry( 1, 1, 1 ),
