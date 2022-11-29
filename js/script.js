@@ -26,6 +26,7 @@ for (let i = 0; i < 20; i++)
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
+renderer.setPixelRatio(Math.min( window.devicePixelRatio, 2 ));
 
 // Add Controls
 const orbitControls = new OrbitControls( camera, renderer.domElement );
@@ -39,13 +40,23 @@ const updateView = ()=>
 		// Update Camera Aspect 
 		camera.aspect = window.innerWidth / window.innerHeight;
 		camera.updateProjectionMatrix();
-
+		
 		// Update Rendrerer
 		renderer.setSize( window.innerWidth, window.innerHeight );
+		renderer.setPixelRatio(Math.min( window.devicePixelRatio, 2 ));
+	} );
+	// Add A Listener For DBlclick ==> FullScreen Mode
+	window.addEventListener( 'dblclick', () =>
+	{
+		if (document.fullscreenElement)
+			document.exitFullscreen();
+		else
+			document.documentElement.requestFullscreen();
 	} );
 }
 
 updateView();
+
 
 const time = new THREE.Clock();
 
