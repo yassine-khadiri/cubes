@@ -12,12 +12,10 @@ camera.position.z = 7;
 const cubesArr = [];
 for (let i = 0; i < 20; i++)
 {
-	let randomColor1 = Math.floor(Math.random() * 256);
-	let randomColor2 = Math.floor(Math.random() * 256);
-	let randomColor3 = Math.floor(Math.random() * 256);
+	let randomRedDegree = Math.floor(Math.random() * 256);
 
 	// Generting Random Colors
-	const randomColor = new THREE.Color(`rgb(${randomColor1}, ${randomColor2}, ${randomColor3})`);
+	const randomColor = new THREE.Color(`rgb(${randomRedDegree}, 0, 0)`);
 	cubesArr[i] = new THREE.Mesh(
 		new THREE.BoxGeometry( 1, 1, 1 ),
 		new THREE.MeshBasicMaterial({color: randomColor})
