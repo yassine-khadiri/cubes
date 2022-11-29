@@ -36,10 +36,25 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
-//Add Controls
+// Add Controls
 const orbitControls = new OrbitControls( camera, renderer.domElement );
-orbitControls.enableDamping = true;
-orbitControls.dampingFactor = 0.25;
+
+// Make Responsive WebGl Experience
+const updateView = ()=>
+{
+	// Add A Listener For Resizing
+	window.addEventListener( 'resize', () =>
+	{
+		// Update Camera Aspect 
+		camera.aspect = window.innerWidth / window.innerHeight;
+		camera.updateProjectionMatrix();
+
+		// Update Rendrerer
+		renderer.setSize( window.innerWidth, window.innerHeight );
+	} );
+}
+
+updateView();
 
 const time = new THREE.Clock();
 
@@ -56,7 +71,6 @@ const animate = ()=>
 		cubesArr[i].rotation.x = (elapsedTime - i) / 3;
 		cubesArr[i].rotation.y = (elapsedTime - i) / 3;
 	}
-	orbitControls.update();
 	renderer.render( scene, camera );
 }
 
