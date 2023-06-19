@@ -1,4 +1,4 @@
-import * as THREE from "https://cdn.skypack.dev/three";
+import * as THREE from 'https://cdn.skypack.dev/three@v0.152.0';
 import OrbitControls from 'https://cdn.skypack.dev/threejs-orbit-controls';
 
 // Creating The Scene
